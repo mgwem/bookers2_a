@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
-  has_many :liked_posts, through: :favorites, source: :book
 
   has_one_attached :profile_image
 
