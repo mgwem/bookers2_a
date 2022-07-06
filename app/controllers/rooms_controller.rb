@@ -9,6 +9,11 @@ class RoomsController < ApplicationController
   end
   
   def show
+    @room = Room.find(params[:id])
+    @messages = @room.messages.all
+    @message = Message.new
+    @entries = @room.entries
+    @another_entry = @entries.where.not(user_id: current_user.id).first
   end
 
 end
