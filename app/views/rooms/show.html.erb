@@ -1,2 +1,21 @@
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h2><%= @another_entry.user.name %>さんとのチャット</h2>
+      
+      <% @messages.each do |message| %>
+        <%= if message.user_id == current_user.id %>
+          <p><%= message.body %></p>
+        <% else %>
+          <p class="text-right"><%= message.body %></p>
+        <% end %>
+      <% end %>
+      
+      <%= form_with model: @messeage do |f| %>
+        <% f.text_field :body %>
+        <% f.hidden_field: :room_id, :value => @room.id %>
+        <% f.submit "送信する" %>
+      <% end %>
+    </div>
+  </div>
+</div>
