@@ -1,21 +1,26 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
-      <h2><%= @another_entry.user.name %>さんとのチャット</h2>
-      
-      <% @messages.each do |message| %>
-        <%= if message.user_id == current_user.id %>
-          <p><%= message.body %></p>
-        <% else %>
-          <p class="text-right"><%= message.body %></p>
+    <div class="col-md-6 mx-auto">
+      <h2 class="mb-5"><%= @another_entry.user.name %>さんとのチャット</h2>
+
+      <div class="bg-light p-5 mb-5">
+        <% @messages.each do |message| %>
+          <% if message.user_id == current_user.id %>
+            <p class="text-right"><%= message.body %></p>
+          <% else %>
+            <p><%= message.body %></p>
+          <% end %>
         <% end %>
-      <% end %>
-      
-      <%= form_with model: @messeage do |f| %>
-        <% f.text_field :body %>
-        <% f.hidden_field: :room_id, :value => @room.id %>
-        <% f.submit "送信する" %>
-      <% end %>
+      </div>
+
+      <div class="text-right">
+        <%= form_with model: @message, url: messages_path, method: :post do |f| %>
+          <%= f.text_field :body %>
+          <%= f.hidden_field :room_id, :value => @room.id %>
+          <%= f.submit "送信する" %>
+        <% end %>
+      </div>
+
     </div>
   </div>
 </div>
