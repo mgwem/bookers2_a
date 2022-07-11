@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
     message = Message.new(message_params)
     message.user_id = current_user.id
@@ -8,13 +8,14 @@ class MessagesController < ApplicationController
       redirect_to room_path(message.room)
     else
       redirect_back(fallback_location: root_path)
+      flash[:notice] = "送信に失敗しました。文字数を確認してください。(140字以内)"
     end
   end
-  
+
   private
-  
+
   def message_params
     params.require(:message).permit(:room_id, :body)
   end
-  
+
 end
